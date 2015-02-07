@@ -1,0 +1,37 @@
+import MapReduceTwoStep
+import sys
+
+"""
+Word Count Example in the Simple Python MapReduce Framework
+"""
+
+mr = MapReduceTwoStep.MapReduceTwoStep()
+
+# =============================
+# Do not modify above this line
+
+def mapper(record):
+    # key: sequence id
+    # value: string of nucleotides
+    key = record[0]
+    value = record[1]
+    mr.emit_intermediate_map(key, value)
+
+def reducer1(key, list_of_values):
+    # key: sequence id
+    # value: list of strings of nucleotides
+    for value in list_of_values:
+        shortened_value = value[:-10] # cut off last 10 base pairs
+        mr.emit_intermediate_reduce((shortened_value, 1))
+
+def reducer2(key, list_of_values):
+    # key: string of nucleotide
+    # value: 1, so list of values is list of length of similar
+    # dont care about list of values
+    mr.emit(key)
+
+# Do not modify below this line
+# =============================
+if __name__ == '__main__':
+  inputdata = open(sys.argv[1])
+  mr.execute(inputdata, mapper, reducer1, reducer2)
