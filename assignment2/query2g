@@ -1,0 +1,8 @@
+SELECT SUM(x.prods)
+FROM (
+      SELECT A.value * B.value AS prods
+      FROM A JOIN B ON A.col_num=B.row_num
+      WHERE A.row_num=2 AND B.col_num=3
+     ) AS x;
+
+

@@ -1,0 +1,16 @@
+
+CREATE VIEW query AS
+SELECT * FROM frequency
+UNION
+SELECT 'q' as docid, 'washington' as term, 1 as count 
+UNION
+SELECT 'q' as docid, 'taxes' as term, 1 as count
+UNION 
+SELECT 'q' as docid, 'treasury' as term, 1 as count;
+
+
+SELECT frequency.docid AS docid, SUM(frequency.count) AS similarity
+FROM frequency JOIN query ON frequency.term = query.term
+WHERE query.docid = "q"
+GROUP BY frequency.docid;
+

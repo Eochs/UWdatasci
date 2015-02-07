@@ -1,0 +1,9 @@
+SELECT SUM(x.prods)
+FROM (
+      SELECT D.count * D_T.count AS prods
+      FROM frequency AS D JOIN frequency AS D_T 
+        ON D.term = D_T.term
+      WHERE D.docid = "10080_txt_crude" AND D_T.docid = "17035_txt_earn"
+     ) AS x;
+
+

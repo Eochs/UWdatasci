@@ -1,0 +1,8 @@
+SELECT docid
+FROM
+   (
+   SELECT docid, COUNT(count) AS term_count
+   FROM frequency
+   GROUP BY docid
+   ) AS x
+WHERE x.term_count > 300;
