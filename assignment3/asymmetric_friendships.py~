@@ -31,7 +31,6 @@ def reducer(key, friendships):
             if(asymmetric):
                 mr.emit([person1,friend1])
             
-
 # =============================
 if __name__ == '__main__':
   inputdata = open(sys.argv[1])

@@ -21,10 +21,11 @@ def reducer(key, friendships):
         mr.emit(friendships[0])
 
     else: # possible hash collision or symmetric friendship
+        # inefficient, but multiple asymmetric to same hash unlikely
         for ith, (person1, friend1) in enumerate(friendships):
             asymmetric = True
             # check other friendships to see if this one is symmetric
-            for person2, friend2 in friendships[ith:]:
+            for person2, friend2 in friendships[:ith]+friendships[ith+1:]:
                 if person1 == friend2 and friend1 == person2:
                     asymmetric = False
             # if no matches found
